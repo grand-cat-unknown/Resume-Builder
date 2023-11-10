@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag resume-builder:$(date +%s)
+    - name: login to aws
+      run: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 026858712465.dkr.ecr.eu-central-1.amazonaws.com
+    - name: docker tagging
+      run: docker tag resume-builder:$(date +%s) 026858712465.dkr.ecr.eu-central-1.amazonaws.com/resume-builder:$(date +%s)
+    - name: docker push
+      run: docker push 026858712465.dkr.ecr.eu-central-1.amazonaws.com/resume-builder:$(date +%s)
