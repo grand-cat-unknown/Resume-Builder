@@ -23,8 +23,8 @@ jobs:
     - name: login to aws
       run: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 026858712465.dkr.ecr.eu-central-1.amazonaws.com
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag resume-builder:$(date +%s)
+      run: docker build . --file Dockerfile --tag resume-builder:latest
     - name: docker tagging
-      run: docker tag resume-builder:$(date +%s) 026858712465.dkr.ecr.eu-central-1.amazonaws.com/resume-builder:$(date +%s)
+      run: docker tag resume-builder:latest 026858712465.dkr.ecr.eu-central-1.amazonaws.com/resume-builder:latest
     - name: docker push
-      run: docker push 026858712465.dkr.ecr.eu-central-1.amazonaws.com/resume-builder:$(date +%s)
+      run: docker push 026858712465.dkr.ecr.eu-central-1.amazonaws.com/resume-builder:latest
