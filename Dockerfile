@@ -1,4 +1,5 @@
 # Stage 1: Building the code
+
 FROM node:19 AS builder
 WORKDIR /app
 COPY package*.json ./
@@ -9,6 +10,12 @@ RUN npm run build
 # Stage 2: Run the built code
 FROM node:19
 WORKDIR /app
+
+ENV NPM_CONFIG_CACHE=/tmp/.npm-cache
+ENV NPM_CONFIG_LOGLEVEL=warn
+ENV NPM_CONFIG_USERCONFIG=/tmp/.npmrc
+ENV HOME=/tmp
+
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/postcss.config.js ./
