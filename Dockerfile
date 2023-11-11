@@ -8,7 +8,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Run the built code
-FROM node:19
+FROM node:18
 WORKDIR /app
 
 ENV NPM_CONFIG_CACHE=/tmp/.npm-cache

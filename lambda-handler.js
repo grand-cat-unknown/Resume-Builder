@@ -1,3 +1,9 @@
+process.env.NPM_CONFIG_CACHE = '/tmp/.npm-cache';
+process.env.NPM_CONFIG_LOGLEVEL = 'warn';
+process.env.NPM_CONFIG_USERCONFIG = '/tmp/.npmrc';
+process.env.HOME = '/tmp';
+
+
 const awsServerlessExpress = require('aws-serverless-express');
 const next = require('next');
 const express = require('express');
