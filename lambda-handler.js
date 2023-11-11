@@ -14,7 +14,14 @@ app.prepare().then(() => {
   });
 
   const serverProxy = awsServerlessExpress.createServer(server);
-  
+
+  // Check if running in AWS Lambda or locally
+  if (!process.env.AWS_EXECUTION_ENV) {
+    // Listening on a port for local development
+    const PORT = process.env.PORT || 3000;
+    server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+  }
+
   exports.handler = (event, context) => {
     awsServerlessExpress.proxy(serverProxy, event, context);
   };

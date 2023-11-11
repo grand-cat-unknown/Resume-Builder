@@ -1,6 +1,6 @@
 # Stage 1: Building the code
 
-FROM node:19 AS builder
+FROM node:18 AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -34,3 +34,5 @@ COPY lambda-handler.js ./
 # Set the command to run the handler.
 # The exact command will depend on how your handler is implemented.
 CMD ["node", "lambda-handler.js"]
+# Expose the port the app runs on
+EXPOSE 3000
